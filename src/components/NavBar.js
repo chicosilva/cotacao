@@ -22,58 +22,10 @@ class NavBar extends Component{
                     <li><a href="#">Fashion Design</a></li>
                     <li><a href="#">Strategic Design</a></li>
                   </ul>
-                  <ul className="dropdown-menu dropdown-column col-md-4">
-                    <li className="dropdown-header">Liberal Arts</li>
-                    <li><a href="#">Anthropology</a></li>
-                    <li><a href="#">Media Studies</a></li>
-                    <li><a href="#">Philosophy</a></li>
-                  </ul>
-                  <ul className="dropdown-menu dropdown-column col-md-4">
-                    <li className="dropdown-header">Social Sciences</li>
-                    <li><a href="#">Food Studies</a></li>
-                    <li><a href="#">Journalism</a></li>
-                    <li><a href="#">Non Profit Management</a></li>
-                  </ul>
+                  
                 </div>
               </li>
 
-              <li className="dropdown">
-                <a href="#" className="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><i className="fa fa-bookmark m-r-1"></i>Links</a>
-                <ul className="dropdown-menu">
-                  <li className="dropdown-toggle">
-                    <a href="">Products</a>
-                    <ul className="dropdown-menu">
-                      <li><a href="#">All</a></li>
-                      <li><a href="#">Popular</a></li>
-                      <li><a href="#">Recent</a></li>
-                      <li><a href="#">Featured</a></li>
-                      <li className="divider"></li>
-                      <li><a href="#"><i className="fa fa-plus m-r-1"></i>Add product</a></li>
-                    </ul>
-                  </li>
-                  <li className="dropdown-toggle">
-                    <a href="">Users</a>
-                    <ul className="dropdown-menu">
-                      <li><a href="#">All</a></li>
-                      <li><a href="#">Recent</a></li>
-                      <li><a href="#">Banned</a></li>
-                      <li className="divider"></li>
-                      <li><a href="#"><i className="fa fa-user-plus m-r-1"></i>Create user</a></li>
-                    </ul>
-                  </li>
-                  <li className="dropdown-toggle">
-                    <a href="#">Blog</a>
-                    <ul className="dropdown-menu">
-                      <li><a href="#">All</a></li>
-                      <li><a href="#">Popular</a></li>
-                      <li className="divider"></li>
-                      <li><a href="#"><i className="fa fa-edit m-r-1"></i>New blog post</a></li>
-                    </ul>
-                  </li>
-                  <li className="divider"></li>
-                  <li><a href="#">Overview</a></li>
-                </ul>
-              </li>
             </ul>
 
             <ul className="nav navbar-nav navbar-right">
