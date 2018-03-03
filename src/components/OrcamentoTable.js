@@ -20,13 +20,13 @@ class OrcamentoTable extends Component {
       text: 'Data'
     }];
 
-    this.state = {products: []};
+    this.state = {budgets: []};
     
   }
 
   componentDidMount(){
-
-    this.setState({products: [
+    
+    this.setState({budgets: [
         {"id": 1, "name": "Cotação 1", "date": "12/12/1980"},
         {"id": 2, "name": "Cotação 2", "date": "12/12/1980"},
     ]});
@@ -36,7 +36,7 @@ class OrcamentoTable extends Component {
   render() {
     
     return (
-      <BootstrapTable keyField='id' data={ this.state.products } columns={ this.columns } />
+      <BootstrapTable keyField='id' data={ this.state.budgets } columns={ this.columns } />
     );
   }
 }
