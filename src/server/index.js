@@ -9,6 +9,13 @@ var cookieParser = require('cookie-parser');
 
 require('./models/Budget')
 
+mongoose.Promise = global.Promise;
+mongoose.connect(keys.mongoUri, function(err) {
+  if (err) {
+    winston.error('MongoDB connection error: ' + err);
+  }
+});
+
 mongoose.connection.once('open', function(url) {
   winston.info('MongoDB connected');
 
@@ -18,6 +25,7 @@ mongoose.connection.once('open', function(url) {
 
   mongoose.connection.on('disconnected', function() {
     winston.info('MongoDB event disconnected');
+    
   });
 
   mongoose.connection.on('reconnected', function() {
@@ -30,13 +38,6 @@ mongoose.connection.once('open', function(url) {
 
 });
 
-mongoose.connect(keys.mongoUri, function(err) {
-  if (err) {
-    winston.error('MongoDB connection error: ' + err);
-  }
-});
-mongoose.Promise = global.Promise;
-
 const app = express();
 
 require('./routes/BudgetsRoute')(app);
@@ -47,3 +48,5 @@ app.use(logger('dev'));
 
 const PORT = process.env.PORT || 5000;
 app.listen(PORT);
+
+module.exports = app;

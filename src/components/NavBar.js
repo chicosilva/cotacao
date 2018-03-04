@@ -9,18 +9,16 @@ class NavBar extends Component{
           <div className="navbar-header">
             <a className="navbar-brand px-demo-brand" href="index.html"><span className="px-demo-logo bg-primary"><span className="px-demo-logo-1"></span><span className="px-demo-logo-2"></span><span className="px-demo-logo-3"></span><span className="px-demo-logo-4"></span><span className="px-demo-logo-5"></span><span className="px-demo-logo-6"></span><span className="px-demo-logo-7"></span><span className="px-demo-logo-8"></span><span className="px-demo-logo-9"></span></span>PixelAdmin</a>
           </div>
-          <button type="button" className="navbar-toggle collapsed" data-toggle="collapse" data-target="#px-demo-navbar-collapse" aria-expanded="false"><i className="navbar-toggle-icon"></i></button>
+          
           <div className="collapse navbar-collapse" id="px-demo-navbar-collapse">
             <ul className="nav navbar-nav">
               <li className="dropdown">
-                <a href="#" className="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Categories</a>
+                <a href="" className="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Categories</a>
                 <div className="dropdown-multi-column">
                   <ul className="dropdown-menu dropdown-column col-md-4">
                     <li className="dropdown-header">Business</li>
-                    <li><a href="#">Design &amp; Urban Ecologies</a></li>
-                    <li><a href="#">Fine Art</a></li>
-                    <li><a href="#">Fashion Design</a></li>
-                    <li><a href="#">Strategic Design</a></li>
+                    <li><a href="">Design &amp; Urban Ecologies</a></li>
+                   
                   </ul>
                   
                 </div>
@@ -73,7 +71,7 @@ class NavBar extends Component{
                     </div>
                   </div>
 
-                  <a href="#" className="widget-more-link">MORE NOTIFICATIONS</a>
+                  <a href="" className="widget-more-link">MORE NOTIFICATIONS</a>
                 </div>
               </li>
 
@@ -85,64 +83,17 @@ class NavBar extends Component{
                 </a>
                 <div className="dropdown-menu p-a-0">
                   <div id="navbar-messages">
+                    
                     <div className="widget-messages-alt-item">
-                      <img src="assets/demo/avatars/2.jpg" alt="" className="widget-messages-alt-avatar" />
-                      <a href="#" className="widget-messages-alt-subject text-truncate">Lorem ipsum dolor sit amet, consectetur adipisicing elit.</a>
-                      <div className="widget-messages-alt-description">from <a href="#">Robert Jang</a></div>
+                      
+                      <a href="" className="widget-messages-alt-subject text-truncate">Lorem ipsum dolor sit amet.</a>
+                      <div className="widget-messages-alt-description">from <a href="">Timothy Owens</a></div>
                       <div className="widget-messages-alt-date">2h ago</div>
                     </div>
 
-                    <div className="widget-messages-alt-item">
-                      
-                      <a href="#" className="widget-messages-alt-subject text-truncate">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</a>
-                      <div className="widget-messages-alt-description">from <a href="#">Michelle Bortz</a></div>
-                      <div className="widget-messages-alt-date">2h ago</div>
-                    </div>
-
-                    <div className="widget-messages-alt-item">
-                      
-                      <a href="#" className="widget-messages-alt-subject text-truncate">Lorem ipsum dolor sit amet.</a>
-                      <div className="widget-messages-alt-description">from <a href="#">Timothy Owens</a></div>
-                      <div className="widget-messages-alt-date">2h ago</div>
-                    </div>
-
-                    <div className="widget-messages-alt-item">
-                      
-                      <a href="#" className="widget-messages-alt-subject text-truncate">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</a>
-                      <div className="widget-messages-alt-description">from <a href="#">Denise Steiner</a></div>
-                      <div className="widget-messages-alt-date">2h ago</div>
-                    </div>
-
-                    <div className="widget-messages-alt-item">
-                      
-                      <a href="#" className="widget-messages-alt-subject text-truncate">Lorem ipsum dolor sit amet.</a>
-                      <div className="widget-messages-alt-description">from <a href="#">Robert Jang</a></div>
-                      <div className="widget-messages-alt-date">2h ago</div>
-                    </div>
-
-                    <div className="widget-messages-alt-item">
-                      
-                      <a href="#" className="widget-messages-alt-subject text-truncate">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</a>
-                      <div className="widget-messages-alt-description">from <a href="#">Michelle Bortz</a></div>
-                      <div className="widget-messages-alt-date">2h ago</div>
-                    </div>
-
-                    <div className="widget-messages-alt-item">
-                      
-                      <a href="#" className="widget-messages-alt-subject text-truncate">Lorem ipsum dolor sit amet.</a>
-                      <div className="widget-messages-alt-description">from <a href="#">Timothy Owens</a></div>
-                      <div className="widget-messages-alt-date">2h ago</div>
-                    </div>
-
-                    <div className="widget-messages-alt-item">
-                      
-                      <a href="#" className="widget-messages-alt-subject text-truncate">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</a>
-                      <div className="widget-messages-alt-description">from <a href="#">Denise Steiner</a></div>
-                      <div className="widget-messages-alt-date">2h ago</div>
-                    </div>
                   </div>
 
-                  <a href="#" className="widget-more-link">MORE MESSAGES</a>
+                  <a href="" className="widget-more-link">MORE MESSAGES</a>
                 </div>
               </li>
 
@@ -155,7 +106,7 @@ class NavBar extends Component{
               </li>
 
               <li className="dropdown">
-                <a href="#" className="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                <a href="" className="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
                   <img src="assets/demo/avatars/1.jpg" alt="" className="px-navbar-image" />
                   <span className="hidden-md">John Doe</span>
                 </a>
@@ -164,7 +115,7 @@ class NavBar extends Component{
                   <li><a href="pages-account.html">Account</a></li>
                   <li><a href="pages-messages-list.html"><i className="dropdown-icon fa fa-envelope"></i>&nbsp;&nbsp;Messages</a></li>
                   <li className="divider"></li>
-                  <li><a href="pages-signin-v1.html"><i className="dropdown-icon fa fa-power-off"></i>&nbsp;&nbsp;Log Out</a></li>
+                  <li><a href=""><i className="dropdown-icon fa fa-power-off"></i>&nbsp;&nbsp;Log Out</a></li>
                 </ul>
               </li>
 
