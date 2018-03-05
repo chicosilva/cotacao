@@ -1,38 +1,31 @@
 process.env.NODE_ENV = 'test';
 
+const request = require('supertest');
+const mongoose = require('mongoose');
+require('sinon-mongoose');
+const sinon = require('sinon');
 const should = require('should');
 const chai = require('chai');
 const chaiHttp = require('chai-http');
+var expect = chai.expect;
 
 chai.use(chaiHttp);
 
-const server = require('../index');
+const app = require('../app');
+
+const Budget = mongoose.model('budget');
 
 describe('Budget', () => {
 
-    describe('Budget list Api, /budgets', () => {
-
-        it('should return property budgets', (done) => {
-
-            chai.request(server)
-                .get('/budgets/')
-                .end((err, res) => {
-                    
-                    should.not.exist(err);
-                    res.status.should.equal(200);
-                    res.type.should.equal('application/json');
-                    res.body.status.should.eql('success');
-                    res.body.budgets.length.should.eql(2);
-                    res.body.budgets[0].should.include.keys(
-                        'id', 'description', 'name'
-                    );
-
-                });
-
-            done();
-
-        });
-
+    it('test api status 200', function (done) {
+        
+        request(app)
+            .get('/budgets')
+            .set('Accept', 'application/json')
+            .expect('Content-Type', /json/)
+            .expect(200);
+        
+        done();
     });
 
 });

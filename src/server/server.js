@@ -1,16 +1,16 @@
-const express = require('express');
-var path = require('path');
 const mongoose = require('mongoose');
-const bodyParser = require('body-parser');
 const keys = require('../configs/keys');
 const winston = require('winston');
-var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 
-require('./models/Budget')
+let mongo_url = keys.mongoUri;
+
+if(process.env.NODE_ENV == 'test'){
+  mongo_url = 'mongodb://localhost/cotation_test';
+}
 
 mongoose.Promise = global.Promise;
-mongoose.connect(keys.mongoUri, function(err) {
+mongoose.connect(mongo_url, function(err) {
   if (err) {
     winston.error('MongoDB connection error: ' + err);
   }
@@ -38,13 +38,7 @@ mongoose.connection.once('open', function(url) {
 
 });
 
-const app = express();
-
-require('./routes/BudgetsRoute')(app);
-
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended:true }))
-app.use(logger('dev'));
+const app = require('./app')
 
 const PORT = process.env.PORT || 5000;
 app.listen(PORT);
