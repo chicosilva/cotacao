@@ -5,7 +5,10 @@
   "dependencies": {
     "cookie-parser": "^1.4.3",
     "ejs": "^2.5.7",
+    "eslint-config-airbnb-base": "^12.1.0",
+    "eslint-plugin-import": "^2.9.0",
     "express": "^4.16.2",
+    "jslint": "^0.12.0",
     "mongoose": "^5.0.8",
     "react": "^16.2.0",
     "react-bootstrap-table-next": "^0.1.3",
@@ -26,10 +29,14 @@
     "chai": "^4.1.2",
     "chai-http": "^3.0.0",
     "cors": "^2.8.4",
+    "eslint": "^4.18.2",
+    "eslint-plugin-react": "^7.7.0",
+    "jest": "^22.4.2",
     "method-override": "^2.3.10",
     "mocha": "^5.0.1",
     "morgan": "^1.9.0",
     "should": "^13.2.1",
+    "superagent": "^3.8.2",
     "supertest": "^3.0.0"
   }
 }
