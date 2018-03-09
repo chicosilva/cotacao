@@ -10,19 +10,13 @@ const Budget = mongoose.model('budget');
 
 describe('Test Budgets', () => {
     
-    _list = null;
-
-    before(function(){
+    before( function (){
         
         const budget = new Budget({
            description: "Test" 
         });
         
-        budget.save((err, result) => {
-            Budget.find((err, result) => {
-                var _list = result;
-            })
-        });
+        budget.save((err, result) => {});
     })
 
     after(function(){
@@ -47,16 +41,13 @@ describe('Test Budgets', () => {
 
         const response = await request(server).get('/budgets');
         
-        const data = [
-            {
-                message: 'success', 
-                budgets: _list
-            }
-        ]
+        const budgets = await Budget.find();
         
-        expect(response.body).to.include({budgets: _list, message: 'success'})
+        const data = {
+            description: budgets[0].description,
+        }
         
-        
+        expect(data).to.include({description: "Test"});
     });
 
 
