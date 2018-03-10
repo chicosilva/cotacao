@@ -17,11 +17,36 @@ module.exports = app => {
                     { 
                         message: "success",
                         budgets: budgets,
-                        
                     }
-                );
+            );
 
-            });
+        });
+
+    });
+    
+    app.post('/budgets/new', (req, res) => {
+        
+        const data = req.body
+
+        const budget = new Budget({
+            description: data.description
+        })
+
+        budget.save(function(err, result){
+            
+            if(err){
+                
+                return res.status(500).json({message: err});
+            }
+
+            res.status(200).json(
+                    { 
+                        message: "success",
+                        description: result.description 
+                    }
+            );
+        });
+
 
     });
 

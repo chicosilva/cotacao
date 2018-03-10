@@ -17,21 +17,9 @@ mongoose.connect(mongo_url, function(err) {
 });
 
 mongoose.connection.once('open', function(url) {
-  winston.info('MongoDB connected');
-
-  mongoose.connection.on('connected', function() {
-    winston.info('MongoDB event connected');
-  });
-
-  mongoose.connection.on('disconnected', function() {
-    winston.info('MongoDB event disconnected');
-    
-  });
-
-  mongoose.connection.on('reconnected', function() {
-    winston.info('MongoDB event reconnected');
-  });
-
+  
+  //winston.info('MongoDB connected');
+  
   mongoose.connection.on('error', function(err) {
     winston.info('MongoDB event error: ' + err);
   });

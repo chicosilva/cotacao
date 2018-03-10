@@ -4,11 +4,12 @@ const bodyParser = require('body-parser')
 
 const app = express();
 
-require('./models/Budget')
-require('./routes/BudgetsRoute')(app);
-
 app.use(morgan('dev')); // log request in console
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended:true }))
+
+require('./models/Budget')
+require('./routes/BudgetsRoute')(app);
+
 
 module.exports = app
