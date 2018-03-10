@@ -49,9 +49,16 @@ describe('Test Budgets', () => {
         const data = {
             description: budgets[0].description,
             date_limit: Today,
+            is_send: false,
         }
         
-        expect(data).to.include({description: "Test", date_limit: Today});
+        const data_include = {
+                description: "Test", 
+                date_limit: Today,
+                is_send: false
+        }
+
+        expect(data).to.include(data_include);
     });
 
     it('create budget', async () => {

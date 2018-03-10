@@ -30,7 +30,7 @@ module.exports = app => {
 
         const budget = new Budget({
             description: data.description,
-            date_limit: data.date_limit
+            date_limit: data.date_limit,
         })
 
         budget.save(function(err, result){
@@ -46,8 +46,6 @@ module.exports = app => {
                     }
             );
         });
-
-
     });
 
 }

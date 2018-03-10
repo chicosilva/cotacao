@@ -14,7 +14,8 @@ const BudgetSchema = new Schema({
     date_limit: {
         type: Date,
         required: true
-    }
+    },
+    is_send: {type: Boolean, default: false}
 
 });
 
