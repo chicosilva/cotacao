@@ -5,7 +5,7 @@ module.exports = app => {
 
     app.get('/budgets',  async (req, res) => {
         
-        await Budget.find({}).select('description created_at').exec(
+        await Budget.find({}).select('description created_at date_limit').exec(
             
             function (e, budgets){
                 
@@ -29,20 +29,20 @@ module.exports = app => {
         const data = req.body
 
         const budget = new Budget({
-            description: data.description
+            description: data.description,
+            date_limit: data.date_limit
         })
 
         budget.save(function(err, result){
             
             if(err){
-                
                 return res.status(500).json({message: err});
             }
 
             res.status(200).json(
                     { 
                         message: "success",
-                        description: result.description 
+                        description: result.description
                     }
             );
         });

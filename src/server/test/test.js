@@ -8,12 +8,15 @@ const mongoose = require('mongoose');
 const Budget = mongoose.model('budget');
 
 
+const Today = Date.now();
+
 describe('Test Budgets', () => {
     
     before( function (){
         
         const budget = new Budget({
-           description: "Test" 
+           description: "Test",
+           date_limit: Today,
         });
         
         budget.save((err, result) => {});
@@ -45,16 +48,22 @@ describe('Test Budgets', () => {
         
         const data = {
             description: budgets[0].description,
+            date_limit: Today,
         }
         
-        expect(data).to.include({description: "Test"});
+        expect(data).to.include({description: "Test", date_limit: Today});
     });
 
     it('create budget', async () => {
 
         const response = await supertest(server)
             .post('/budgets/new')
-            .send({description: "Test"})
+            .send(
+                {
+                    description: "Test",
+                    date_limit: "2018-12-12"
+                }
+            )
 
         expect(response.body).to.include({description: "Test"});
         expect(response.statusCode).to.be.equal(200);
