@@ -1,32 +1,40 @@
-const mongoose = require('mongoose');
+const express = require('express');
+const morgan = require('morgan');
+const bodyParser = require('body-parser');
 const keys = require('../configs/keys');
-const winston = require('winston');
-var cookieParser = require('cookie-parser');
+const session = require('express-session');
+const cookieParser = require('cookie-parser');
+const app = express();
+require('./db');
 
-let mongo_url = keys.mongoUri;
+app.use(morgan('dev')); // log request in console
 
-if(process.env.NODE_ENV == 'test'){
-  mongo_url = 'mongodb://localhost/cotation_test';
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended:true }));
+app.set('trust proxy', 1);
+
+app.use(session({
+  secret: keys.secret,
+  resave: false,
+  saveUninitialized: true
+}));
+
+const sess = {
+    secret: 'keyboard cat',
+    cookie: {}
 }
 
-mongoose.Promise = global.Promise;
-mongoose.connect(mongo_url, function(err) {
-  if (err) {
-    winston.error('MongoDB connection error: ' + err);
-  }
-});
+if (app.get('env') === 'production') {
+    app.set('trust proxy', 1);
+    sess.cookie.secure = true;
+}
 
-mongoose.connection.once('open', function(url) {
-  
-  //winston.info('MongoDB connected');
-  
-  mongoose.connection.on('error', function(err) {
-    winston.info('MongoDB event error: ' + err);
-  });
+app.use(session(sess));
 
-});
-
-const app = require('./app')
+require('./models/Budget');
+require('./models/User');
+require('./routes/UserRoute')(app);
+require('./routes/BudgetsRoute')(app);
 
 const PORT = process.env.PORT || 5000;
 app.listen(PORT);
