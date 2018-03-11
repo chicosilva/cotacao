@@ -1,24 +1,26 @@
-const mongoose =  require('mongoose');
-const {Schema} = mongoose;
+const mongoose = require('mongoose');
+const {
+    Schema
+} = mongoose;
 
 const BudgetSchema = new Schema({
-    
-    user: {type: Schema.Types.ObjectId, ref: "user", required: true},
-    
-    description: {
-        type: String, 
+
+    user: {
+        type: Schema.Types.ObjectId,
+        ref: "user",
         required: true
     },
-    created_at: {
-        type: Date,
-        default: Date.now
+
+    description: {
+        type: String,
+        required: true
     },
     date_limit: {
         type: Date,
         required: true
     },
     is_send: {
-        type: Boolean, 
+        type: Boolean,
         default: false
     }
 

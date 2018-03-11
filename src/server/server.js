@@ -12,14 +12,16 @@ const app = express();
 app.use(morgan('dev')); // log request in console
 
 app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended:true }));
+app.use(bodyParser.urlencoded({
+    extended: true
+}));
 app.use(cookieParser());
 app.set('trust proxy', 1);
 
 app.use(session({
-  secret: keys.secret,
-  resave: false,
-  saveUninitialized: true
+    secret: keys.secret,
+    resave: false,
+    saveUninitialized: true
 }));
 
 const sess = {
