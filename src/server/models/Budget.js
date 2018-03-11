@@ -24,4 +24,4 @@ const BudgetSchema = new Schema({
 
 });
 
-mongoose.model('budget', BudgetSchema);
+mongoose.model('Budget', BudgetSchema);

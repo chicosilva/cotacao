@@ -5,8 +5,9 @@ const chai = require('chai');
 const supertest = require('supertest');
 const { expect, assert } = chai;
 const mongoose = require('mongoose');
-const Budget = mongoose.model('budget');
-const User = mongoose.model('user');
+const Budget = mongoose.model('Budget');
+const User = mongoose.model('User');
+const agent = supertest.agent(server);
 
 const Today = Date.now();
 
@@ -27,7 +28,6 @@ describe('Test Budgets', () => {
                  throw err;
              }
         });
-        
         this.objUser = user;
 
     })
@@ -39,8 +39,7 @@ describe('Test Budgets', () => {
 
     it('create valid user session', async () => {
         
-        const response = await supertest(server)
-            .post('/user/session-test')
+        const response = await agent.post('/user/session-test')
             .send({user_id: this.objUser._id});
 
         expect(response.body.user_id).to.be.equal(this.objUser._id.toString());
@@ -49,8 +48,7 @@ describe('Test Budgets', () => {
 
     it('create budget', async () => {
         
-        const response = await supertest(server)
-            .post('/budgets/new')
+        const response = await agent.post('/budgets/new')
             .send(
                 {
                     description: "Test",

@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
-const Budget = mongoose.model('budget');
-const User = mongoose.model('user');
+const Budget = mongoose.model('Budget');
+const User = mongoose.model('User');
 
 module.exports = app => {
 
@@ -22,13 +22,10 @@ module.exports = app => {
 
     });
     
-
     app.post('/budgets/new', (req, res) => {
         
         const data = req.body;
         
-        console.log(req.session);
-
         const budget = new Budget({
             description: data.description,
             date_limit: data.date_limit,

@@ -4,13 +4,16 @@ const bodyParser = require('body-parser');
 const keys = require('../configs/keys');
 const session = require('express-session');
 const cookieParser = require('cookie-parser');
-const app = express();
+
 require('./db');
+
+const app = express();
 
 app.use(morgan('dev')); // log request in console
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended:true }));
+app.use(cookieParser());
 app.set('trust proxy', 1);
 
 app.use(session({
