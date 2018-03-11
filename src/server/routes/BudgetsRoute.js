@@ -34,7 +34,7 @@ module.exports = app => {
         const budget = new Budget({
             description: data.description,
             date_limit: data.date_limit,
-            user: req.session.user_id
+            user: data.user_id
         });
 
         budget.save((err, result) => {

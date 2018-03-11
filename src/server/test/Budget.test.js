@@ -11,6 +11,9 @@ const mongoose = require('mongoose');
 const Budget = mongoose.model('Budget');
 const User = mongoose.model('User');
 const agent = supertest.agent(server);
+const jwt = require('jsonwebtoken');
+const keys = require('../../configs/keys');
+const store = require('store')
 
 const Today = Date.now();
 
@@ -40,28 +43,35 @@ describe('Test Budgets', () => {
         User.remove((err, removed) => null);
     })
 
-    it('create valid user session', async () => {
+    it('login user', async () => {
+        
+        const response = await agent.post('/user/login')
+            .send({email: this.objUser.email});
+        
+        const token = response.body.token;
 
-        const response = await agent.post('/user/session-test')
-            .send({
-                user_id: this.objUser._id
-            });
+        const decoded = jwt.verify(token, keys.secret);
+        
+        store.set('user', {user_id: decoded.user_id, token: token})
 
-        expect(response.body.user_id).to.be.equal(this.objUser._id.toString());
+        expect(this.objUser.id).to.be.equal(decoded.user_id);
 
     });
 
     it('create budget', async () => {
-
+        
         const response = await agent.post('/budgets/new')
             .send({
                 description: "Test",
-                date_limit: "2018-12-12"
+                date_limit: "2018-12-12",
+                user_id: store.get('user').user_id,
+                token: store.get('user').token
             })
 
         expect(response.body).to.include({
             description: "Test"
         });
+
         expect(response.statusCode).to.be.equal(200);
 
     });
@@ -79,22 +89,27 @@ describe('Test Budgets', () => {
     });
 
     it('Status code 200', async () => {
+        
+        token = store.get('user').token;
 
-        const response = await supertest(server).get('/budgets');
+        const response = await supertest(server).get('/budgets?token='+token);
         expect(response.statusCode).to.be.equal(200);
 
     });
-
+    
     it('Contains Property budgets and success', async () => {
 
-        const response = await supertest(server).get('/budgets');
+        token = store.get('user').token;
+        const response = await supertest(server).get('/budgets?token='+token);
         expect(response.body).to.have.any.keys('message,', 'budgets');
 
     });
 
     it('check budget list', async () => {
 
-        const response = await supertest(server).get('/budgets');
+        token = store.get('user').token;
+
+        const response = await supertest(server).get('/budgets?token='+token);
         const budgets = await Budget.find();
 
         const data = {
