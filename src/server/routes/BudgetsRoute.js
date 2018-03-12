@@ -1,12 +1,17 @@
 const mongoose = require('mongoose');
 const Budget = mongoose.model('Budget');
 const User = mongoose.model('User');
+const keys = require('../../configs/keys');
+const jwt = require('jsonwebtoken');
 
 module.exports = app => {
     
     app.get('/budgets', async (req, res) => {
 
-        await Budget.find({}).select('description created_at date_limit').exec(
+        const token = req.query.token;
+        const decoded = jwt.verify(token, keys.secret);
+        
+        await Budget.find({user: decoded.user_id}).select('description created_at date_limit').exec(
 
             (e, budgets) => {
 

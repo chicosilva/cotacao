@@ -7,7 +7,7 @@ module.exports = app => {
 
     app.post('/user/login', async (req, res) => {
 
-        const user = await User.findOne({email: req.body.email })
+        const user = await User.findOne({ email: req.body.email });
         
         const token = jwt.sign({ user_id: user._id }, keys.secret);
         
