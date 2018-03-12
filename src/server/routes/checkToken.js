@@ -2,6 +2,10 @@ const keys = require('../../configs/keys');
 const jwt = require('jsonwebtoken');
 
 function checkToken(token) {
+     
+    if(!token || token == ''){
+        return false;
+    }
     
     this.decoded = false;
 
@@ -10,7 +14,6 @@ function checkToken(token) {
         if (!err) {
             this.decoded = decoded;
         }
-        
         
     });
 

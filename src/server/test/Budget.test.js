@@ -23,6 +23,8 @@ describe('Test Budgets', () => {
 
     before(() => {
         
+        User.remove((err, removed) => null);
+
         const user = new User({
             first_name: "Assis",
             last_name: "Silva",
@@ -52,8 +54,7 @@ describe('Test Budgets', () => {
         const token = response.body.token;
 
         const decoded = jwt.verify(token, keys.secret);
-        
-        store.set('user', {user_id: decoded.user_id, token: token})
+        store.set('user', {user_id: decoded.user_id, token: token});
 
         expect(this.objUser.id).to.be.equal(decoded.user_id);
 
@@ -98,9 +99,9 @@ describe('Test Budgets', () => {
 
     });
     
-    it('token invalid 500', async () => {
+    it('token invalid', async () => {
         
-        token = '123';
+        token = 123;
 
         const response = await supertest(server).get('/budgets?token='+token);
         expect(response.statusCode).to.be.equal(500);

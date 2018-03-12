@@ -8,7 +8,7 @@ const checkToken = require('./checkToken');
 module.exports = app => {
     
     app.get('/budgets', async (req, res) => {
-
+        
         const decoded = checkToken(req.query.token);
 
         if(!decoded){
@@ -16,7 +16,7 @@ module.exports = app => {
                 message: "Error Token"
             });
         }
-        
+
         await Budget.find({user: decoded.user_id}).select('description created_at date_limit').exec(
 
             (e, budgets) => {
@@ -33,17 +33,24 @@ module.exports = app => {
                 });
 
             });
-
     });
 
     app.post('/budgets/new', (req, res) => {
 
         const data = req.body;
 
+        const decoded = checkToken(data.token);
+
+        if(!decoded){
+            return res.status(500).json({
+                message: "Error Token"
+            });
+        }
+
         const budget = new Budget({
             description: data.description,
             date_limit: data.date_limit,
-            user: data.user_id
+            user: decoded.user_id
         });
 
         budget.save((err, result) => {
