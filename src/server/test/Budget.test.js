@@ -22,11 +22,12 @@ describe('Test Budgets', () => {
     objUser = null;
 
     before(() => {
-
+        
         const user = new User({
             first_name: "Assis",
             last_name: "Silva",
             email: "test@test.com",
+            password: "122",
         });
 
         user.save((err, result) => {
@@ -97,6 +98,15 @@ describe('Test Budgets', () => {
 
     });
     
+    it('token invalid 500', async () => {
+        
+        token = '123';
+
+        const response = await supertest(server).get('/budgets?token='+token);
+        expect(response.statusCode).to.be.equal(500);
+
+    });
+
     it('Contains Property budgets and success', async () => {
 
         token = store.get('user').token;
