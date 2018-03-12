@@ -3,9 +3,7 @@ const Budget = mongoose.model('Budget');
 const User = mongoose.model('User');
 
 module.exports = app => {
-
-    objUser = null;
-
+    
     app.get('/budgets', async (req, res) => {
 
         await Budget.find({}).select('description created_at date_limit').exec(

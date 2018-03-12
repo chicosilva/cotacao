@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 import Menu from "./components/Menu";
 import NavBar from "./components/NavBar";
 import Footer from "./components/Footer";
-import OrcamentoTable from "./components/OrcamentoTable";
+import BudgetTable from "./components/BudgetTable";
 
 class App extends Component {
   render() {
@@ -17,7 +17,7 @@ class App extends Component {
           <div className="page-header">
             <h1>Header</h1>
           </div>
-          <OrcamentoTable />
+          <BudgetTable />
         </div>
 
         <Footer />
