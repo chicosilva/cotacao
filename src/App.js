@@ -1,28 +1,28 @@
 import React, { Component } from 'react';
-//import { BrowserRouter, Route } from "react-router-dom";
-import Menu from "./components/Menu";
-import NavBar from "./components/NavBar";
-import Footer from "./components/Footer";
-import BudgetTable from "./components/BudgetTable";
+import { Provider } from 'react-redux';
+import Menu from "./core/Menu";
+import NavBar from "./core/NavBar";
+import Footer from "./core/Footer";
+import BudgetTable from "./budgets/BudgetTable";
+import store from './users/store.js';
 
 class App extends Component {
   render() {
     return (
 
-      <div>
-        <Menu />
-        <NavBar />
-        
-        <div className="px-content">
-          <div className="page-header">
-            <h1>Header</h1>
+        <Provider store={ store }>
+          <div>
+            <Menu />
+            <NavBar />
+            <div className="px-content">
+              <div className="page-header">
+                <h1>Título</h1>
+              </div>
+              <BudgetTable />
+            </div>
+            <Footer />
           </div>
-          <BudgetTable />
-        </div>
-
-        <Footer />
-        
-      </div>
+        </Provider>
 
     );
   }

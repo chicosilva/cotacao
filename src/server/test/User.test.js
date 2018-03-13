@@ -17,7 +17,7 @@ const store = require('store')
 describe('Test User', () => {
 
     before(() => {
-        
+
         User.remove((err, removed) => null);
     })
 
@@ -26,7 +26,7 @@ describe('Test User', () => {
     })
 
     it('create user', async () => {
-        
+
         const response = await agent.post('/user/new')
             .send({
                 first_name: "Francisco",
@@ -45,11 +45,14 @@ describe('Test User', () => {
         const token = response.body.token;
 
         const decoded = jwt.verify(token, keys.secret);
-        
+
         expect(response.body.id).to.be.equal(decoded.user_id);
 
-        store.set('user', {user_id: decoded.user_id, token: token});
-        
+        store.set('user', {
+            user_id: decoded.user_id,
+            token: token
+        });
+
     });
 
 })

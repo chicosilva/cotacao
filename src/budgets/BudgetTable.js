@@ -1,9 +1,10 @@
 import React, { Component } from "react";
 import 'react-bootstrap-table-next/dist/react-bootstrap-table2.min.css';
 import BootstrapTable from 'react-bootstrap-table-next';
+import LoginForm from "../users/LoginForm";
+import { LocalForm, Control } from 'react-redux-form';
 const keys = require('../configs/keys');
 const axios = require('axios');
-
 
 
 class BudgetTable extends Component {
@@ -48,8 +49,11 @@ class BudgetTable extends Component {
   render() {
     
     return (
-      <BootstrapTable keyField='_id' data={ this.state.budgets } columns={ this.columns } />
-    );
+      <div>
+        <BootstrapTable keyField='_id' data={ this.state.budgets } columns={ this.columns } />
+        <LoginForm />
+      </div>
+    )
   }
 }
 
