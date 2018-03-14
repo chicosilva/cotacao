@@ -4,13 +4,13 @@ import Menu from "./core/Menu";
 import NavBar from "./core/NavBar";
 import Footer from "./core/Footer";
 import BudgetTable from "./budgets/BudgetTable";
-import store from './users/store.js';
+import rootStore from './store.js';
 
 class App extends Component {
   render() {
     return (
 
-        <Provider store={ store }>
+        <Provider store={ rootStore }>
           <div>
             <Menu />
             <NavBar />

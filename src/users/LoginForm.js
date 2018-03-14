@@ -1,23 +1,24 @@
 import React from 'react';
-import { Control, Form, actions, Errors } from 'react-redux-form';
+import { Control, Form, Errors } from 'react-redux-form';
+import {connect} from "react-redux";
+import {bindActionCreators} from 'redux';
+import changeValue from './actionCreators';
+
 
 class LoginForm extends React.Component {
   
   handleSubmit(user) {
-    // Do whatever you like in here.
-    // If you connect the UserForm to the Redux store,
-    // you can dispatch actions such as:
-    // dispatch(actions.submit('user', somePromise));
-    // etc.
-    console.log(user.email);
+    
   }
+
   render() {
     return (
       <Form
         model="user"
         onSubmit={(user) => this.handleSubmit(user)}
-      >
-        <label htmlFor="user.firstName">Nome:</label>
+      > 
+       
+        <label htmlFor="user.first_name">Nome:</label>
         <Control.text model="user.first_name" id="first_name" required />
 
         <label htmlFor="user.lastName">Sobre nome:</label>
@@ -47,4 +48,14 @@ class LoginForm extends React.Component {
   }
 }
 
-export default LoginForm;
+const mapStateToProps = function (state){
+  return {
+    field: state.field.value
+  }
+}
+
+const mapDispatchtoProps = dispatch =>{
+  return bindActionCreators({changeValue}, dispatch)
+}
+
+export default connect(mapStateToProps, mapDispatchtoProps)(LoginForm)
