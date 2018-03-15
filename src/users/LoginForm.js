@@ -2,22 +2,32 @@ import React from 'react';
 import { Control, Form, Errors } from 'react-redux-form';
 import {connect} from "react-redux";
 import {bindActionCreators} from 'redux';
-import changeValue from './actionCreators';
+import {updateList} from './actionCreators';
 
 
 class LoginForm extends React.Component {
   
   handleSubmit(user) {
+    this.props.updateList()
+  }
+  
+  componentDidMount(){
     
   }
 
   render() {
+
+    let content = this.props.list.map(item => {
+      return <li key={item._id}>{item.description}</li>
+    })
+
     return (
-      <Form
-        model="user"
-        onSubmit={(user) => this.handleSubmit(user)}
-      > 
-       
+      <div>
+
+      {content}
+
+      <Form model="user" onSubmit={(user) => this.handleSubmit(user)}> 
+        
         <label htmlFor="user.first_name">Nome:</label>
         <Control.text model="user.first_name" id="first_name" required />
 
@@ -41,21 +51,21 @@ class LoginForm extends React.Component {
         <Control.text type="password" required model="user.password" id="user.password" />
 
         <button type="submit">
-          New User
+          Novo usuário
         </button>
-      </Form>
+      </Form></div>
     );
   }
 }
 
 const mapStateToProps = function (state){
   return {
-    field: state.field.value
+    list: state.users.list
   }
 }
 
-const mapDispatchtoProps = dispatch =>{
-  return bindActionCreators({changeValue}, dispatch)
+const mapDispatchtoProps = dispatch => {
+  return bindActionCreators({updateList}, dispatch)
 }
 
 export default connect(mapStateToProps, mapDispatchtoProps)(LoginForm)

@@ -6,6 +6,7 @@ import Footer from "./core/Footer";
 import BudgetTable from "./budgets/BudgetTable";
 import rootStore from './store.js';
 
+
 class App extends Component {
   render() {
     return (

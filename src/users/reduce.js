@@ -1,15 +1,42 @@
+const initial = {
 
-const initial = {value: 'Opa'}
+  title: "Orçamentos",
+  columns: [{
+    dataField: '_id',
+    text: 'ID'
+  }, {
+    dataField: 'description',
+    text: 'Descrição'
+  }, {
+    dataField: 'created_at',
+    text: 'Data'
+  }],
 
-const reduceUser = function(state = initial, action){
+  list: []
+
+}
+
+const reduceUser = function (state = initial, action) {
+
+  switch (action.type) {
     
-    switch(action.type){
-      case 'ALTERACAO':
-        return {value: action.payload}
+    case 'UPDATE_LIST':
+      return {
+        ...state,
+        list: action.payload.list
+      }
+    
+    case 'REMOVE_LIST':
+      
+      return {
+        ...state,
+        list: action.payload.list
+      }
+    
       default:
         return state;
 
-    }
+  }
 
 }
 
