@@ -5,24 +5,36 @@ import NavBar from "./core/NavBar";
 import Footer from "./core/Footer";
 import BudgetTable from "./budgets/BudgetTable";
 import rootStore from './store.js';
-
+import LoginForm from "./users/LoginForm";
+import { BrowserRouter, Route } from "react-router-dom";
 
 class App extends Component {
   render() {
     return (
 
         <Provider store={ rootStore }>
-          <div>
-            <Menu />
-            <NavBar />
-            <div className="px-content">
-              <div className="page-header">
-                <h1>Título</h1>
+
+          <BrowserRouter>
+            <div>
+              
+              <Menu />
+              <NavBar />
+
+              <div className="px-content">
+                
+                <div className="page-header">
+                  <h1>Título</h1>
+                  
+                </div>
+                
+                <Route exact path="/" component={BudgetTable}/>
+                <Route path="/new-user/" component={LoginForm}/>
+                
               </div>
-              <BudgetTable />
+              <Footer />
             </div>
-            <Footer />
-          </div>
+          </BrowserRouter>
+
         </Provider>
 
     );

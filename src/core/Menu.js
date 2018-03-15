@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import {Link} from "react-router-dom";
 
 class Menu extends Component {
 
@@ -14,7 +15,14 @@ class Menu extends Component {
         <ul className="px-nav-content">
 
           <li className="px-nav-item">
-            <a href=""><i className="px-nav-icon ion-stats-bars"></i><span className="px-nav-label">Cotações</span></a>
+            <Link to="/">
+              <i className="px-nav-icon ion-stats-bars"></i><span className="px-nav-label">Orçamentos</span>
+            </Link>
+            <Link to="/new-user/">
+              <i className="px-nav-icon ion-stats-bars">
+              </i><span className="px-nav-label">
+              Novo usuário</span>
+            </Link>
           </li>
 
         </ul>

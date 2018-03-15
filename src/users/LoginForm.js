@@ -17,15 +17,9 @@ class LoginForm extends React.Component {
 
   render() {
 
-    let content = this.props.list.map(item => {
-      return <li key={item._id}>{item.description}</li>
-    })
-
     return (
       <div>
-
-      {content}
-
+      
       <Form model="user" onSubmit={(user) => this.handleSubmit(user)}> 
         
         <label htmlFor="user.first_name">Nome:</label>

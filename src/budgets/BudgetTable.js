@@ -1,11 +1,9 @@
 import React, { Component } from "react";
 import 'react-bootstrap-table-next/dist/react-bootstrap-table2.min.css';
 import BootstrapTable from 'react-bootstrap-table-next';
-import LoginForm from "../users/LoginForm";
 import { bindActionCreators } from "redux";
-import {connect} from "react-redux"
+import {connect} from "react-redux";
 import {updateList, removeList} from "../users/actionCreators";
-
 
 class BudgetTable extends Component {
 
@@ -22,7 +20,7 @@ class BudgetTable extends Component {
         <button onClick={this.props.removeList} >
           Remover Lista
         </button>
-        <LoginForm />
+        
       </div>
     )
   }
