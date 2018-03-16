@@ -18,7 +18,6 @@ class NavBar extends Component{
                   <ul className="dropdown-menu dropdown-column col-md-4">
                     <li className="dropdown-header">Business</li>
                     <li><a href="">Design &amp; Urban Ecologies</a></li>
-                   
                   </ul>
                   
                 </div>

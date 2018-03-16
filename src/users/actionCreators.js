@@ -1,27 +1,66 @@
-const updateList = e => {
+import {AlertDanger, AlertSuccess} from '../core/AlertMessages';
+const axios = require('axios');
+const keys = require('../configs/keys')
+
+const newUser = data => {
   
-  return {
-    type: "UPDATE_LIST",
-    payload: {list: [{
-      _id: 1,
-      description: "VAmos te",
-      created_at: "12/12/1980"
-    },
-    {
-      _id: 2,
-      description: "Test 2",
-      created_at: "12/12/2000",
+  const data_form = data.form_user;
+
+  axios.post(keys.urlApi + '/user/new', {
+    first_name: data_form.first_name,
+    last_name: data_form.last_name,
+    email: data_form.email,
+    password: data_form.password,
+  })
+  .then(function (response) {
+    
+    console.log(response);
+
+    AlertSuccess("Cadastro criado com sucesso!");
+
+  })
+  .catch(function (error) {
+    
+    if (error.response) {
+
+      const errors = error.response.data.errors;
+      
+      for(var key in error.response.data.errors){
+        
+        AlertDanger(errors[key].msg);
+      }
+      
+    } else if (error.request) {
+        
+        AlertDanger("Ocorreu um erro, tente novamente mais tarde.");
+        
+    } else {
+        
+        //AlertDanger(error.message);
     }
-  ]}
-  }
-}
+    console.log(error.config);
+  });
 
-const removeList = e => {
-  console.log('asd')
+  /*
+  const result = axios.post(keys.urlApi + '/user/new', data);
+
+  result.then(result => {
+    
+    AlertSuccess('Usuário cadastrado com sucesso!');
+
+  }).catch(error => {
+    
+    AlertDanger(error.message);
+    
+  })
+  */
+
+
   return {
-    type: "REMOVE_LIST",
-    payload: {list: []}
+    type: "NEW_USER",
+    payload: {data}
   }
+
 }
 
-module.exports = { updateList, removeList};
+export default newUser;

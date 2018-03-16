@@ -1,39 +1,29 @@
-const initial = {
-
+const initialUser = {
+  
   title: "Orçamentos",
-  columns: [{
-    dataField: '_id',
-    text: 'ID'
-  }, {
-    dataField: 'description',
-    text: 'Descrição'
-  }, {
-    dataField: 'created_at',
-    text: 'Data'
-  }],
-
-  list: []
-
+  data: {
+    email: '',
+  },
 }
 
-const reduceUser = function (state = initial, action) {
-
+const reduceUser = function (state=initialUser, action) {
+  
   switch (action.type) {
     
-    case 'UPDATE_LIST':
+    case 'NEW_USER':
       return {
         ...state,
-        list: action.payload.list
+        user: action.payload.data
       }
     
-    case 'REMOVE_LIST':
+    case 'USER_DATA':
       
       return {
         ...state,
-        list: action.payload.list
+        data: action.payload.data
       }
     
-      default:
+    default:
         return state;
 
   }
