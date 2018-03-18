@@ -3,7 +3,10 @@ import { Control, Form, Errors } from 'react-redux-form';
 import {connect} from "react-redux";
 import {bindActionCreators} from 'redux';
 import newUser from './actionCreators';
-
+import {
+  AlertDanger,
+  AlertSuccess
+} from '../core/AlertMessages';
 
 class NewUserForm extends React.Component {
   
@@ -12,6 +15,10 @@ class NewUserForm extends React.Component {
   }
   
   render() {
+    
+    if(this.props.error){
+      AlertDanger('error');
+    }
     
     return (
       <div>
@@ -52,7 +59,8 @@ class NewUserForm extends React.Component {
 
 const mapStateToProps = function (state){
   return {
-    user: state.user.data
+    user: state.user.data,
+    error: state.user.error,
   }
 }
 
