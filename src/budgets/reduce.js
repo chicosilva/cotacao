@@ -1,6 +1,7 @@
 const initial = {
 
   title: "Orçamentos",
+  data: [],
   columns: [{
     dataField: '_id',
     text: 'ID'
@@ -10,40 +11,33 @@ const initial = {
   }, {
     dataField: 'created_at',
     text: 'Data'
-  }],
-
-  list: []
+  }]
 
 }
 
-const reduceUser = function (state = initial, action) {
+const budgetsReducer = function (state = initial, action) {
 
   switch (action.type) {
-    
-    case 'NEW_USER':
-      return {
-        ...state,
-        list: action.payload.user
-      }
 
     case 'UPDATE_LIST':
-      return {
-        ...state,
-        list: action.payload.list
-      }
-    
-    case 'REMOVE_LIST':
-      
-      return {
-        ...state,
-        list: action.payload.list
-      }
-    
-      default:
-        return state;
+      return Object.assign({},
+        state, {
+          data: action.payload,
+          success: true
+        }
+      )
+
+    case 'ERROR_LOAD_DATA':
+      return Object.assign({}, state, {
+        data: action.payload,
+        success: false
+      });
+
+    default:
+      return state;
 
   }
 
 }
 
-export default reduceUser;
+export default budgetsReducer;

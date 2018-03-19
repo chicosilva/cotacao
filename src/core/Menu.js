@@ -15,7 +15,7 @@ class Menu extends Component {
         <ul className="px-nav-content">
 
           <li className="px-nav-item">
-            <Link to="/">
+            <Link to="/budgets">
               <i className="px-nav-icon ion-stats-bars"></i><span className="px-nav-label">Orçamentos</span>
             </Link>
             <Link to="/new-user/">

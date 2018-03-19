@@ -1,48 +1,56 @@
-import {
-  AlertDanger,
-  AlertSuccess
-} from '../core/AlertMessages';
 const axios = require('axios');
 const keys = require('../configs/keys');
 
+const saveUser = data => {
+
+  sessionStorage.setItem('token', data.token);
+  return {
+    type: 'NEW_USER',
+    payload: data
+  }
+
+};
+
+const receiveError = data => {
+  return {
+    type: 'ERROR_VALIDATION',
+    payload: data
+  }
+}
+
 const newUser = data => {
 
-  const data_form = data.form_user;
+  sessionStorage.setItem('token', '');
 
-  axios.post(
-      keys.urlApi + '/user/new',
-      data_form
-    )
-    .then(function (response) {
+  return function (dispatch) {
 
-      localStorage.setItem('token', response.token);
-      AlertSuccess("Cadastro criado com sucesso!");
+    return axios({
+        url: `${keys.urlApi}/user/new`,
+        timeout: 5000,
+        method: 'post',
+        data: data.form_user,
+        responseType: 'json'
+      })
+      .then(function (response) {
 
-    })
-    .catch(function (error) {
+        dispatch(saveUser(response.data));
 
-      if (error.response) {
+      })
+      .catch(function (error) {
 
-        const errors = error.response.data.errors;
+        if (error.response) {
+          dispatch(receiveError(error.response.data.errors));
 
-        for (var key in error.response.data.errors) {
-          AlertDanger(errors[key].msg);
+        } else if (error.request) {
+
+          dispatch(receiveError("Ocorreu um erro, tente novamente mais tarde."));
+
+        } else {
+          dispatch(receiveError(error.message));
         }
 
-      } else if (error.request) {
+      })
 
-        AlertDanger("Ocorreu um erro, tente novamente mais tarde.");
-
-      } else {
-
-        AlertDanger(error.message);
-      }
-
-    });
-  
-  return {
-    type: "NEW_USER",
-    payload: {data}
   }
 
 }

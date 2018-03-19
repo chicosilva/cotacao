@@ -3,10 +3,9 @@ import { Control, Form, Errors } from 'react-redux-form';
 import {connect} from "react-redux";
 import {bindActionCreators} from 'redux';
 import newUser from './actionCreators';
-import {
-  AlertDanger,
-  AlertSuccess
-} from '../core/AlertMessages';
+import { AlertDanger, AlertSuccess } from '../core/AlertMessages';
+import {Redirect} from "react-router-dom";
+
 
 class NewUserForm extends React.Component {
   
@@ -17,7 +16,14 @@ class NewUserForm extends React.Component {
   render() {
     
     if(this.props.error){
-      AlertDanger('error');
+      AlertDanger(this.props.data, 'msg');
+    }
+    if(this.props.success){
+      AlertSuccess("Usuário cadastrado com sucesso!");
+    }
+    
+    if(this.props.success){
+      return <Redirect to="/budgets" />;
     }
     
     return (
@@ -48,7 +54,7 @@ class NewUserForm extends React.Component {
         <Control.text type="password" required model="form_user.password" id="form_user.password" />
 
         <button type="submit">
-          Novo usuário
+          Salvar
         </button>
       
       </Form>
@@ -58,8 +64,10 @@ class NewUserForm extends React.Component {
 }
 
 const mapStateToProps = function (state){
+
   return {
-    user: state.user.data,
+    data: state.user.data,
+    success: state.user.success,
     error: state.user.error,
   }
 }

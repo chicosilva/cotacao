@@ -1,33 +1,44 @@
-import { AlertDanger, AlertSuccess } from '../core/AlertMessages';
-
 const initialUser = {
   token: '',
-  title: "Orçamentos",
+  title: "Usuários",
+  data: [],
   error: false,
+  success: false,
 }
 
+export const getToken = () => sessionStorage.getItem('token');
 
-const reduceUser = function (state=initialUser, action) {
+const reduceUser = function (state = initialUser, action) {
   
   switch (action.type) {
-    
+
     case 'NEW_USER':
-      return {...state, user: action.payload.data}
-    
+      return Object.assign({},
+        state, {
+          data: action.payload,
+          error: false,
+          success: true
+        }
+      )
+
     case 'ERROR_VALIDATION':
-      return {...state, user: action.payload.data}
+      return Object.assign({}, state, {
+        data: action.payload,
+        error: true
+      })
 
     case 'USER_DATA':
-      return {
-        ...state, 
-        user: action.payload.data
-      }
-    
+      return Object.assign({}, state, {
+        data: action.payload,
+        error: false
+      })
+
     default:
-        return state;
+      return state;
 
   }
 
 }
+
 
 export default reduceUser;

@@ -7,8 +7,16 @@ const options = {
   beep: true,
 }
 
-export const AlertDanger = message => {
-   Alert.error(message, options);
+export const AlertDanger = (message, keyMessage = null) => {
+  
+  if (message !== null && typeof message === 'object') {
+    for (var key in message) {
+      Alert.error(message[key][keyMessage], options);
+    }
+  }else{
+    Alert.error(message, options);
+  }
+
 }
 
 export const AlertSuccess = message => {

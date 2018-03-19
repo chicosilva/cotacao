@@ -1,7 +1,5 @@
 const mongoose = require('mongoose');
-const {
-    Schema
-} = mongoose;
+const {Schema} = mongoose;
 
 const BudgetSchema = new Schema({
 
@@ -10,14 +8,13 @@ const BudgetSchema = new Schema({
         ref: "user",
         required: true
     },
-
     description: {
         type: String,
         required: true
     },
     date_limit: {
         type: Date,
-        required: true
+        required: false
     },
     is_send: {
         type: Boolean,
