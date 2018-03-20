@@ -1,5 +1,5 @@
 import React from 'react';
-import { Control, Form, Errors } from 'react-redux-form';
+import { Control, Form } from 'react-redux-form';
 import {connect} from "react-redux";
 import {bindActionCreators} from 'redux';
 import {newBudget} from './actionCreators';

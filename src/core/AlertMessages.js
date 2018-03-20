@@ -1,25 +1,24 @@
-import Alert from 'react-s-alert';
-
-const options = {
-  position: 'bottom-right',
-  effect: 'slide',
-  html: true,
-  beep: true,
-}
+import { toast } from 'react-toastify';
 
 export const AlertDanger = (message, keyMessage = null) => {
-  
+
   if (message !== null && typeof message === 'object') {
+    
     for (var key in message) {
-      Alert.error(message[key][keyMessage], options);
+      toast.error(message[key][keyMessage], {position: toast.POSITION.TOP_RIGHT});
     }
-  }else{
-    Alert.error(message, options);
+
+  } else {
+
+    toast.error(message, {position: toast.POSITION.TOP_RIGHT});
   }
 
 }
 
 export const AlertSuccess = message => {
 
-  Alert.success(message, options);
+  toast.success(message, {
+    position: toast.POSITION.TOP_RIGHT
+  });
+
 }
