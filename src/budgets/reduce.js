@@ -26,6 +26,14 @@ const budgetsReducer = function (state = initial, action) {
           success: true
         }
       )
+    
+    case 'NEW_BUDGET':
+      return Object.assign({},
+        state, {
+          data: action.payload,
+          success: true
+        }
+      )
 
     case 'ERROR_LOAD_DATA':
       return Object.assign({}, state, {
