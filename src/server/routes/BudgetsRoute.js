@@ -4,6 +4,24 @@ const User = mongoose.model('User');
 const keys = require('../../configs/keys');
 const jwt = require('jsonwebtoken');
 const checkToken = require('./checkToken');
+const { check, validationResult } = require('express-validator/check');
+const { matchedData, sanitize } = require('express-validator/filter');
+
+function validadeToken(token){
+    
+    return new Promise((resolve, reject) => {
+        
+        const decoded = checkToken(token);
+
+        if(!decoded){
+            reject('Token invalid');
+        }else{
+            return resolve(null);
+        }
+
+    });
+
+}
 
 module.exports = app => {
     
@@ -17,7 +35,7 @@ module.exports = app => {
             });
         }
 
-        await Budget.find({user: decoded.user_id}).select('description created_at date_limit').exec(
+        await Budget.find({user: decoded.user_id}).select('title created_at date_limit').exec(
 
             (e, budgets) => {
 
@@ -35,19 +53,36 @@ module.exports = app => {
             });
     });
 
-    app.post('/budgets/new', (req, res) => {
+    app.post('/budgets/new/', 
+    
+    [
+        check('token', 'Token é obrigatório').exists()
+        .custom(value => {
+            
+            return validadeToken(value).then((err, token) =>{
+                return true;
+            }).catch(err => {
+                
+                throw new Error('token inválido!'); 
+            });
+        }),
+        check('title', 'Título é obrigatório').exists(),
+        check('description', 'Descrição é obrigatório').exists(),
+    ],
+    
+    (req, res, next) => {
 
-        const data = req.body;
+        const errors = validationResult(req);
 
-        const decoded = checkToken(data.token);
-
-        if(!decoded){
-            return res.status(500).json({
-                message: "Error Token"
+        if (!errors.isEmpty()) {
+            return res.status(422).json({
+                errors: errors.mapped()
             });
         }
-
+        const data = req.body;
+        
         const budget = new Budget({
+            title: data.title,
             description: data.description,
             date_limit: data.date_limit,
             user: decoded.user_id
@@ -62,7 +97,8 @@ module.exports = app => {
             }
             res.status(200).json({
                 message: "success",
-                description: result.description
+                description: result.description,
+                id: result._id
             });
         });
         

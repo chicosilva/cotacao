@@ -22,9 +22,10 @@ class BudgetTable extends Component {
             <i className="px-nav-icon ion-plus-round"></i>
             <span className="px-nav-label">Novo Orçamento</span>
           </Link>
+          <hr />
         </div>
 
-        {!this.props.list ? 
+        {this.props.list.length ? 
           ( <BootstrapTable keyField='_id' data={ this.props.list } columns={ this.props.columns } /> )
           :
           <div className="aler alert-warning">Nenhum registro encontrado!</div>
@@ -37,8 +38,8 @@ class BudgetTable extends Component {
 
 const mapStateToProps = state => (
   {
-    list: state.budgets.data,
-    columns: state.budgets.columns,
+    list: state.budget.list,
+    columns: state.budget.columns,
   }
 )
 

@@ -20,13 +20,7 @@ const reduceUser = function (state = initialUser, action) {
           success: true
         }
       )
-
-    case 'ERROR_VALIDATION':
-      return Object.assign({}, state, {
-        data: action.payload,
-        error: true
-      })
-
+    
     case 'USER_DATA':
       return Object.assign({}, state, {
         data: action.payload,

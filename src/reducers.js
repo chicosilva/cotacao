@@ -6,8 +6,9 @@ import budgetsReducer from "./budgets/reduce";
 const reducers = combineReducers({
   
   user: reduceUser,
-  budgets: budgetsReducer,
-  form_user: combineForms({form_user: {}})
+  budget: budgetsReducer,
+  form_user: combineForms({form_user: {}}),
+  form_budget: combineForms({form_budget: {}}),
 
 })
 

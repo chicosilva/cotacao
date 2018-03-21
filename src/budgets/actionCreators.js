@@ -1,10 +1,8 @@
 import {getToken} from "../users/reduce";
+import { toast } from 'react-toastify';
+
 const axios = require('axios');
 const keys = require('../configs/keys');
-
-const receiveError = data => {
-  return { type: 'ERROR_LOAD_DATA', payload: data }
-};
 
 const saveBudget = data => {
 
@@ -12,38 +10,48 @@ const saveBudget = data => {
     type: "NEW_BUDGET",
     payload: data 
   }
+
 }
 
 export const newBudget = data => {
 
   return function (dispatch) {
+    
+    const data_form = Object.assign({}, data.form_budget, {token: getToken()});
 
     return axios({
-        url: `${keys.urlApi}/budget/new/?token=`+ getToken(),
+        url: `${keys.urlApi}/budgets/new/`,
         timeout: 5000,
         method: 'post',
-        data: data.form_user,
+        data: data_form,
         responseType: 'json'
       })
       .then(function (response) {
 
+        toast.success("Cadastro efetuado com sucesso!");
         dispatch(saveBudget(response.data));
 
       })
       .catch(function (error) {
-
+        
         if (error.response) {
-          dispatch(receiveError(error.response.data.errors));
+          
+          const errors = error.response.data.errors;
+
+          for (var key in errors) {
+            toast.error(errors[key].msg);
+          }
 
         } else if (error.request) {
-
-          dispatch(receiveError("Ocorreu um erro, tente novamente mais tarde."));
+          
+          toast.error("Ocorreu um erro ao tentar cadastrar, tente novamente");
 
         } else {
-          dispatch(receiveError(error.message));
+          
+          toast.error(error.message);
         }
 
-      })
+      });
 
   }
 
@@ -64,8 +72,8 @@ export const updateList = data => {
         dispatch({ type: 'UPDATE_LIST', payload: response.data.budgets });
       })
       .catch(function (error) {
-        
-        dispatch(receiveError("Ocorreu um erro, tente novamente mais tarde."));
+
+        toast.error("Ocorreu um erro, tente novamente mais tarde.");
       });
 
   }

@@ -1,13 +1,11 @@
 const initial = {
 
   title: "Orçamentos",
-  data: [],
+  list: [],
+  success: false,
   columns: [{
-    dataField: '_id',
-    text: 'ID'
-  }, {
-    dataField: 'description',
-    text: 'Descrição'
+    dataField: 'title',
+    text: 'Orçamento'
   }, {
     dataField: 'created_at',
     text: 'Data'
@@ -22,25 +20,20 @@ const budgetsReducer = function (state = initial, action) {
     case 'UPDATE_LIST':
       return Object.assign({},
         state, {
-          data: action.payload,
-          success: true
+          list: action.payload,
+          success: false
         }
       )
     
     case 'NEW_BUDGET':
+      
       return Object.assign({},
         state, {
           data: action.payload,
           success: true
         }
       )
-
-    case 'ERROR_LOAD_DATA':
-      return Object.assign({}, state, {
-        data: action.payload,
-        success: false
-      });
-
+    
     default:
       return state;
 

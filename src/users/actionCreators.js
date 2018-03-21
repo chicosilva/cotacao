@@ -1,3 +1,5 @@
+import { toast } from 'react-toastify';
+
 const axios = require('axios');
 const keys = require('../configs/keys');
 
@@ -10,13 +12,6 @@ const saveUser = data => {
   }
 
 };
-
-const receiveError = data => {
-  return {
-    type: 'ERROR_VALIDATION',
-    payload: data
-  }
-}
 
 const newUser = data => {
 
@@ -39,14 +34,19 @@ const newUser = data => {
       .catch(function (error) {
 
         if (error.response) {
-          dispatch(receiveError(error.response.data.errors));
+          const errors = error.response.data.errors;
+
+          for (var key in errors) {
+            toast.error(errors[key].msg);
+          }
 
         } else if (error.request) {
 
-          dispatch(receiveError("Ocorreu um erro, tente novamente mais tarde."));
+          toast.error("Ocorreu um erro, tente novamente mais tarde.");
 
         } else {
-          dispatch(receiveError(error.message));
+          
+          toast.error(error.message);
         }
 
       })

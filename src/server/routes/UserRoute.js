@@ -54,10 +54,8 @@ module.exports = app => {
             return emailExists(value).then((err, user) =>{
                 return true;
             }).catch(err => {
-                
                 throw new Error('e-mail já cadastrado!'); 
             });
-
         }),
 
         check('password', 'A senha deve ter no mínimo 5 letras')

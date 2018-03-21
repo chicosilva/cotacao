@@ -16,7 +16,7 @@ class App extends Component {
           <BrowserRouter>
             <div>
               
-              <ToastContainer autoClose={5000} />
+              <ToastContainer autoClose={5000} preventDuplicates={true} preventOpenDuplicates={true} />
 
               <Menu />
               <NavBar />
