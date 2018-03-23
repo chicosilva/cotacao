@@ -3,6 +3,7 @@ const initial = {
   title: "Orçamentos",
   list: [],
   success: false,
+  start_date: null,
   columns: [{
     dataField: 'title',
     text: 'Orçamento'
@@ -16,6 +17,9 @@ const initial = {
 const budgetsReducer = function (state = initial, action) {
 
   switch (action.type) {
+
+    case 'UPDATE_DATE':
+      return {...state, start_date: action.payload}
 
     case 'UPDATE_LIST':
       return Object.assign({},

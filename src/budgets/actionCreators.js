@@ -4,6 +4,21 @@ import { toast } from 'react-toastify';
 const axios = require('axios');
 const keys = require('../configs/keys');
 
+export const getNewDate = date => {
+  
+  updateDate(date);
+  return date;
+}
+
+export const updateDate = date => {
+  
+  return {
+    type: "UPDATE_DATE",
+    payload: date
+  }
+  
+}
+
 const saveBudget = data => {
 
   return {
