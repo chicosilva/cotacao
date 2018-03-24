@@ -4,18 +4,24 @@ const User = mongoose.model('User');
 const keys = require('../../configs/keys');
 const jwt = require('jsonwebtoken');
 const checkToken = require('./checkToken');
-const { check, validationResult } = require('express-validator/check');
-const { matchedData, sanitize } = require('express-validator/filter');
+const {
+    check,
+    validationResult
+} = require('express-validator/check');
+const {
+    matchedData,
+    sanitize
+} = require('express-validator/filter');
 
-function validadeToken(token){
-    
+function validadeToken(token) {
+
     return new Promise((resolve, reject) => {
-        
+
         const decoded = checkToken(token);
 
-        if(!decoded){
+        if (!decoded) {
             reject('Token invalid');
-        }else{
+        } else {
             return resolve(null);
         }
 
@@ -24,18 +30,20 @@ function validadeToken(token){
 }
 
 module.exports = app => {
-    
+
     app.get('/budgets', async (req, res) => {
-        
+
         const decoded = checkToken(req.query.token);
 
-        if(!decoded){
+        if (!decoded) {
             return res.status(500).json({
                 message: "Error Token"
             });
         }
 
-        await Budget.find({user: decoded.user_id}).select('title created_at date_limit').exec(
+        await Budget.find({
+            user: decoded.user_id
+        }).sort('-_id').select('title created_at date_limit').exec(
 
             (e, budgets) => {
 
@@ -51,57 +59,55 @@ module.exports = app => {
                 });
 
             });
-    });
+    })
 
-    app.post('/budgets/new/', 
-    
-    [
-        check('token', 'Token é obrigatório').exists()
-        .custom(value => {
-            
-            return validadeToken(value).then((err, token) =>{
-                return true;
-            }).catch(err => {
-                
-                throw new Error('token inválido!'); 
-            });
-        }),
-        check('title', 'Título é obrigatório').exists(),
-        check('description', 'Descrição é obrigatório').exists(),
-    ],
-    
-    (req, res, next) => {
+    app.post('/budgets/new/', [
+            check('token', 'Token é obrigatório').exists()
+            .custom(value => {
 
-        const errors = validationResult(req);
+                return validadeToken(value).then((err, token) => {
+                    return true;
+                }).catch(err => {
 
-        if (!errors.isEmpty()) {
-            return res.status(422).json({
-                errors: errors.mapped()
-            });
-        }
-        const data = req.body;
-        
-        const budget = new Budget({
-            title: data.title,
-            description: data.description,
-            date_limit: data.date_limit,
-            user: decoded.user_id
-        });
+                    throw new Error('token inválido!');
+                });
+            }),
+            check('title', 'Título é obrigatório').exists(),
+            check('description', 'Descrição é obrigatório').exists(),
+        ],
 
-        budget.save((err, result) => {
+        (req, res, next) => {
 
-            if (err) {
-                return res.status(500).json({
-                    message: err
+            const errors = validationResult(req);
+
+            if (!errors.isEmpty()) {
+                return res.status(422).json({
+                    errors: errors.mapped()
                 });
             }
-            res.status(200).json({
-                message: "success",
-                description: result.description,
-                id: result._id
+            const data = req.body;
+
+            const budget = new Budget({
+                title: data.title,
+                description: data.description,
+                date_limit: data.date_limit,
+                user: decoded.user_id
             });
+
+            budget.save((err, result) => {
+
+                if (err) {
+                    return res.status(500).json({
+                        message: err
+                    });
+                }
+                res.status(200).json({
+                    message: "success",
+                    description: result.description,
+                    id: result._id
+                });
+            });
+
         });
-        
-    });
 
 }

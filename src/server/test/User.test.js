@@ -34,20 +34,12 @@ describe('Test User', () => {
                 email: "test@test.com",
                 password: "123123",
             })
-
-        expect(response.body).to.include({
-            first_name: "Francisco"
-        });
-
+        
         expect(response.body).to.have.any.keys('token');
         expect(response.statusCode).to.be.equal(200);
 
         const token = response.body.token;
-
-        const decoded = jwt.verify(token, keys.secret);
-
-        expect(response.body.id).to.be.equal(decoded.user_id);
-
+        
         store.set('user', {
             user_id: decoded.user_id,
             token: token

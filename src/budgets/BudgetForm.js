@@ -1,11 +1,12 @@
 import React from 'react';
-import { Control, Form, Errors } from 'react-redux-form';
+import { Control, Form, Errors, actions } from 'react-redux-form';
 import {connect} from "react-redux";
 import {bindActionCreators} from 'redux';
-import {newBudget, updateDate, getNewDate} from './actionCreators';
+import {newBudget, getNewDate} from './actionCreators';
 import {Redirect} from "react-router-dom";
 import DatePicker from "react-datepicker";
 import 'react-datepicker/dist/react-datepicker.css';
+import {reduxForm} from "redux-form";
 
 
 class BudgetForm extends React.Component {
@@ -13,27 +14,19 @@ class BudgetForm extends React.Component {
   handleSubmit(data) {
     this.props.newBudget(data);
   }
-
-  constructor(props){
-    super(props);
-
-    this.handleChange = this.handleChange.bind(this);
-  }
-
-  handleChange(date){
-    
-    this.props.updateDate(date);
-  }
-
+  
   render() {
     
+    const {dispatch, getNewDate} = this.props;
+    dispatch( actions.reset('form_budget.date_limit'));
+
     if(this.props.success){
       return <Redirect to="/budgets" />;
     }
     const today = new Date();
     return (
       <div>
-        <div className="col-md-6">
+        <div className="col-md-4">
         
           <Form model="form_budget" onSubmit={data => this.handleSubmit(data)}> 
             
@@ -49,8 +42,8 @@ class BudgetForm extends React.Component {
                   model="form_budget.title"
                   show="touched"
                   messages={{
-                    valueMissing: 'Campo é obrigatório',
-                    typeMismatch: 'Campo é obrigatório',
+                    valueMissing: 'Campo obrigatório',
+                    typeMismatch: 'Campo obrigatório',
                   }}
               />
             </div>
@@ -63,8 +56,8 @@ class BudgetForm extends React.Component {
                   model="form_budget.description"
                   show="touched"
                   messages={{
-                    valueMissing: 'Campo é obrigatório',
-                    typeMismatch: 'Campo é obrigatório',
+                    valueMissing: 'Campo obrigatório',
+                    typeMismatch: 'Campo obrigatório',
                   }}
               />
             </div>
@@ -73,8 +66,8 @@ class BudgetForm extends React.Component {
               <label htmlFor="form_budget.date_limit">Data limite de resposta:</label>
               
               <Control.text
-                
-                onChange={this.handleChange}
+                id="date_limit"
+                onChange={getNewDate}
                 selected={this.props.start_date}
                 component={DatePicker}
                 model="form_budget.date_limit"
@@ -83,7 +76,6 @@ class BudgetForm extends React.Component {
                 dateFormat="DD/MM/YYYY"
                 disabledDays={{before: today}}
                 isClearable={true}
-                
               />
 
               <small className="text-muted">
@@ -101,7 +93,8 @@ class BudgetForm extends React.Component {
         </div>
 
         <div className="col-md-5">
-            <h3 className="fix-margin-budget-title">Relatório de orçamentos da mesma catagoria</h3>
+            <h3 className="fix-margin-budget-title">Passo 2</h3>
+            <hr />
         </div>
       </div>
       
@@ -119,7 +112,10 @@ const mapStateToProps = function (state){
 }
 
 const mapDispatchtoProps = dispatch => {
-  return bindActionCreators({newBudget, updateDate, getNewDate}, dispatch)
+  
+  return bindActionCreators({newBudget, getNewDate}, dispatch)
 }
+
+BudgetForm = reduxForm({form: 'BudgetForm', destroyOnUnmount: false})(BudgetForm);
 
 export default connect(mapStateToProps, mapDispatchtoProps)(BudgetForm)

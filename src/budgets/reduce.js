@@ -21,10 +21,10 @@ const budgetsReducer = function (state = initial, action) {
     case 'UPDATE_DATE':
       return {...state, start_date: action.payload}
 
-    case 'UPDATE_LIST':
+    case 'GET_LIST':
       return Object.assign({},
         state, {
-          list: action.payload,
+          list: action.payload.data.budgets,
           success: false
         }
       )

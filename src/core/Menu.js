@@ -16,8 +16,20 @@ class Menu extends Component {
 
           <li className="px-nav-item">
             <Link to="/budgets">
-              <i className="px-nav-icon ion-stats-bars"></i><span className="px-nav-label">Orçamentos</span>
+              <i className="px-nav-icon ion-stats-bars"></i><span className="px-nav-label">Orçamentos (1 nova resposta)</span>
             </Link>
+            <Link to="/fornecedores">
+              <i className="px-nav-icon ion-stats-bars"></i><span className="px-nav-label">Fornecedores</span>
+            </Link>
+
+            <Link to="/produtos">
+              <i className="px-nav-icon ion-stats-bars"></i><span className="px-nav-label">Produtos</span>
+            </Link>
+
+            <Link to="/produtos">
+              <i className="px-nav-icon ion-stats-bars"></i><span className="px-nav-label">Configurações</span>
+            </Link>
+
             <Link to="/new-user/">
               <i className="px-nav-icon ion-stats-bars">
               </i><span className="px-nav-label">

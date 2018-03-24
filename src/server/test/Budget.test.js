@@ -29,7 +29,7 @@ describe('Test Budgets', () => {
             first_name: "Assis",
             last_name: "Silva",
             email: "test@test.com",
-            password: "122",
+            password: "123",
         });
 
         user.save((err, result) => {
@@ -65,6 +65,7 @@ describe('Test Budgets', () => {
         const response = await agent.post('/budgets/new')
             .send({
                 description: "Test",
+                title: "Test Title",
                 date_limit: "2018-12-12",
                 user_id: store.get('user').user_id,
                 token: store.get('user').token
@@ -86,7 +87,7 @@ describe('Test Budgets', () => {
                 description: null
             });
 
-        expect(response.statusCode).to.be.equal(500);
+        expect(response.statusCode).to.be.equal(422);
 
     });
 
@@ -101,9 +102,7 @@ describe('Test Budgets', () => {
     
     it('token invalid', async () => {
         
-        token = 123;
-
-        const response = await supertest(server).get('/budgets?token='+token);
+        const response = await supertest(server).get('/budgets?token=123');
         expect(response.statusCode).to.be.equal(500);
 
     });
@@ -124,6 +123,7 @@ describe('Test Budgets', () => {
         const budgets = await Budget.find();
 
         const data = {
+            title: budgets[0].title,
             description: budgets[0].description,
             date_limit: Today,
             is_send: false,
@@ -131,6 +131,7 @@ describe('Test Budgets', () => {
 
         const data_include = {
             description: "Test",
+            title: "Test Title",
             date_limit: Today,
             is_send: false
         }
