@@ -23,9 +23,17 @@ class ItemList extends React.Component{
                 <tbody>
                   <tr>
                     <td>
-                        <select className="form-control">
-                            <option>Canetas de tinta branca</option>
-                        </select>
+                        <div className="col-md-9">
+                          <select className="form-control">
+                              <option>Canetas de tinta branca</option>
+                          </select>
+                        </div>
+                        <div className="col-md-2">
+                          <a href="" className="btn btn-success"> 
+                            <i class="px-nav-icon ion-plus-round"></i>
+                          </a>
+                        </div>
+
                     </td>
                     <td>
                         <input type="number" className="form-control" />
