@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const Product = mongoose.model('Product');
 const {Schema} = mongoose;
 
 const BudgetSchema = new Schema({
@@ -23,7 +24,8 @@ const BudgetSchema = new Schema({
     is_send: {
         type: Boolean,
         default: false
-    }
+    },
+    products: [{type: mongoose.Schema.Types.ObjectId, ref: 'Product'}]
 
 });
 

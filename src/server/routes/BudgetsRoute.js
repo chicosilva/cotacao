@@ -91,7 +91,8 @@ module.exports = app => {
                 title: data.title,
                 description: data.description,
                 date_limit: data.date_limit,
-                user: decoded.user_id
+                user: decoded.user_id,
+                products: [{name: "teste 1"}, {name: "Teste 2"}]
             });
 
             budget.save((err, result) => {

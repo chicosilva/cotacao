@@ -34,6 +34,7 @@ app.use(bodyParser.urlencoded({
 }));
 app.use(cookieParser());
 
+require('./models/Product');
 require('./models/Budget');
 require('./models/User');
 require('./routes/UserRoute')(app);
