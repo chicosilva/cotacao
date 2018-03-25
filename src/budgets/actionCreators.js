@@ -1,5 +1,7 @@
 import {TYPES} from "../budgets/reduce";
 const {postDataApi, getDataApi} = require("../core/actionsDataApi");
+
+
 export const getNewDate = date => {
   return { type: TYPES.UPDATE_DATE, payload: date}
 }
@@ -15,7 +17,7 @@ const save = data => {
 export const newBudget = data => {
 
   return function (dispatch) {
-
+    
     postDataApi(data.form_budget, response => {
       dispatch(save(response.data));
     });

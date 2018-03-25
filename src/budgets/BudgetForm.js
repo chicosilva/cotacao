@@ -18,11 +18,12 @@ class BudgetForm extends React.Component {
   render() {
     
     const {dispatch, getNewDate} = this.props;
-    dispatch( actions.reset('form_budget.date_limit'));
+    
     dispatch( actions.focus('form_budget.title'));
     
     if(this.props.success){
-      
+      dispatch( actions.reset('form_budget.'));
+      dispatch( actions.reset('form_budget.date_limit'));
       return <Redirect to="/budgets" />
     }
     const today = new Date();
@@ -76,7 +77,7 @@ class BudgetForm extends React.Component {
                   onChange={getNewDate}
                   selected={this.props.start_date}
                   component={DatePicker}
-                  model="form_budget.date_limit"
+                  model=".date_limit"
                   className="form-control" 
                   value={'' || null}
                   dateFormat="DD/MM/YYYY"
