@@ -13,7 +13,7 @@ module.exports = app => {
         const decoded = checkApiToken(req.query.token);
 
         if (!decoded) {
-            return res.status(500).json({
+            return res.status(422).json({
                 message: "Error Token"
             });
         }
@@ -25,7 +25,7 @@ module.exports = app => {
             (e, products) => {
 
                 if (e) {
-                    res.status(500).json({
+                    res.status(422).json({
                         "message": "Error"
                     });
                 }
@@ -70,7 +70,7 @@ module.exports = app => {
             product.save((err, result) => {
 
                 if (err) {
-                    return res.status(500).json({
+                    return res.status(422).json({
                         message: err
                     });
                 }

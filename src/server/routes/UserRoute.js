@@ -2,24 +2,26 @@ const mongoose = require('mongoose');
 const User = mongoose.model('User');
 const keys = require('../../configs/keys');
 const jwt = require('jsonwebtoken');
-const { check, validationResult } = require('express-validator/check');
-const { matchedData, sanitize } = require('express-validator/filter');
+const { check,validationResult } = require('express-validator/check');
+const { matchedData,sanitize } = require('express-validator/filter');
 
-function emailExists(email){
-    
+function emailExists(email) {
+
     return new Promise((resolve, reject) => {
-        
+
         User.
-            find({ email: email }).
-            select('email').
-            exec(function(err, user){
-                
-                if(user.length > 0){
-                    reject(user);
-                }else{
-                    return resolve(null);
-                }
-                
+        find({
+            email: email
+        }).
+        select('email').
+        exec(function (err, user) {
+
+            if (user.length > 0) {
+                reject(user);
+            } else {
+                return resolve(null);
+            }
+
         });
     });
 
@@ -44,17 +46,17 @@ module.exports = app => {
     });
 
     app.post('/user/new', [
-        
+
         check('email')
         .isEmail().withMessage('e-mail inválido')
         .trim()
         .normalizeEmail()
         .custom(value => {
-            
-            return emailExists(value).then((err, user) =>{
+
+            return emailExists(value).then((err, user) => {
                 return true;
             }).catch(err => {
-                throw new Error('e-mail já cadastrado!'); 
+                throw new Error('e-mail já cadastrado!');
             });
         }),
 
@@ -64,7 +66,7 @@ module.exports = app => {
         }),
         check('first_name', 'Nome é obrigatório').exists(),
         check('last_name', 'Sobrenome é obrigatório').exists(),
-        
+
     ], (req, res, next) => {
 
         const errors = validationResult(req);
@@ -76,7 +78,7 @@ module.exports = app => {
         }
 
         const data_user = matchedData(req);
-        
+
         const user = new User({
             first_name: data_user.first_name,
             last_name: data_user.last_name,
@@ -92,12 +94,17 @@ module.exports = app => {
                 });
             }
 
-            const token = jwt.sign({ user_id: user._id}, keys.secret);
+            const token = jwt.sign({
+                user_id: user._id
+            }, keys.secret);
 
-            res.status(200).json({message: "success",token: token});
-            
+            res.status(200).json({
+                message: "success",
+                token: token
+            });
+
         });
 
-    });
+    })
 
 }

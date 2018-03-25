@@ -19,10 +19,10 @@ class BudgetForm extends React.Component {
     
     const {dispatch, getNewDate} = this.props;
     dispatch( actions.reset('form_budget.date_limit'));
-
     dispatch( actions.focus('form_budget.title'));
-
+    
     if(this.props.success){
+      
       return <Redirect to="/budgets" />
     }
     const today = new Date();
@@ -34,16 +34,18 @@ class BudgetForm extends React.Component {
           <div className="col-md-12">
             <Form model="form_budget" onSubmit={data => this.handleSubmit(data)}> 
               
+            <Control type="hidden" model=".url" id="url" defaultValue="/budgets/new" className="form-control" />
+
               <h3 className="fix-margin-budget-title"> Passo 1</h3>
               <hr />
 
               <div className="form-group">
-                <label htmlFor="form_budget.title">Assunto do e-mail: <span className="required">*</span></label>
-                <Control.text model="form_budget.title" id="title" className="form-control" required />
+                <label htmlFor=".title">Assunto do e-mail: <span className="required">*</span></label>
+                <Control.text model=".title" id="title" className="form-control" required />
                 <small className="text-muted">Por exemplo: "Pedido de orçamento de canetas"</small>
                 <Errors
                     className="required"
-                    model="form_budget.title"
+                    model=".title"
                     show="touched"
                     messages={{
                       valueMissing: 'Campo obrigatório',
@@ -53,11 +55,11 @@ class BudgetForm extends React.Component {
               </div>
 
               <div className="form-group">
-                <label htmlFor="form_budget.description">Descreva sua necessidade: <span className="required">*</span></label>
-                <Control.textarea model="form_budget.description" className="form-control" required />
+                <label htmlFor=".description">Descreva sua necessidade: <span className="required">*</span></label>
+                <Control.textarea model=".description" className="form-control" required />
                 <Errors
                     className="required"
-                    model="form_budget.description"
+                    model=".description"
                     show="touched"
                     messages={{
                       valueMissing: 'Campo obrigatório',
@@ -67,7 +69,7 @@ class BudgetForm extends React.Component {
               </div>
               
               <div className="form-group">
-                <label htmlFor="form_budget.date_limit">Data limite de resposta:</label>
+                <label htmlFor=".date_limit">Data limite de resposta:</label>
                 
                 <Control.text
                   id="date_limit"
@@ -113,7 +115,7 @@ class BudgetForm extends React.Component {
   }
 }
 
-const mapStateToProps = function (state){
+const mapStateToProps =  state => {
 
   return {
     success: state.budget.success,

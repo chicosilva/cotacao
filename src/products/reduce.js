@@ -1,12 +1,12 @@
 const initial = {
 
-  title: "Orçamentos",
+  title: "Produtos",
   list: [],
   success: false,
   start_date: null,
   columns: [{
-    dataField: 'title',
-    text: 'Orçamento'
+    dataField: 'name',
+    text: 'Nome'
   }, {
     dataField: 'created_at',
     text: 'Data'
@@ -16,16 +16,12 @@ const initial = {
 
 const TYPES = {
   LIST: 'LIST',
-  UPDATE_DATE: 'UPDATE_DATE',
   NEW: 'NEW',
 }
 
-const budgetsReducer = function (state = initial, action) {
+const productsReducer = function (state = initial, action) {
 
   switch (action.type) {
-
-    case TYPES.UPDATE_DATE:
-      return {...state, start_date: action.payload}
 
     case TYPES.LIST:
       return Object.assign({},
@@ -51,5 +47,5 @@ const budgetsReducer = function (state = initial, action) {
 
 }
 
-module.exports.budgetsReducer = budgetsReducer;
+module.exports.productsReducer = productsReducer;
 module.exports.TYPES = TYPES;

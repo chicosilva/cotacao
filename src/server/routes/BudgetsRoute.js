@@ -15,7 +15,7 @@ module.exports = app => {
 
         if (!decoded) {
             return res.status(422).json({
-                message: "Error Token"
+                message: "Error Token",
             });
         }
 
@@ -27,7 +27,7 @@ module.exports = app => {
 
                 if (e) {
                     res.status(422).json({
-                        "message": "Error"
+                        message: "Error"
                     });
                 }
 
@@ -66,7 +66,7 @@ module.exports = app => {
             }
             const data = req.body;
 
-            const decoded = checkApiToken(req.query.token);
+            const decoded = checkApiToken(data.token);
             
             const budget = new Budget({
                 title: data.title,

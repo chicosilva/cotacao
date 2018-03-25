@@ -1,4 +1,5 @@
 import React from "react";
+import {connect} from "react-redux";
 
 
 class ItemList extends React.Component{
@@ -30,7 +31,7 @@ class ItemList extends React.Component{
                         </div>
                         <div className="col-md-2">
                           <a href="" className="btn btn-success"> 
-                            <i class="px-nav-icon ion-plus-round"></i>
+                            <i className="px-nav-icon ion-plus-round"></i>
                           </a>
                         </div>
 
@@ -57,4 +58,11 @@ class ItemList extends React.Component{
     }
 }
 
-export default ItemList;
+const mapStateToProps = state => {
+  return {
+    products: state.product.list
+  }
+}
+
+export default connect(mapStateToProps)(ItemList)
+

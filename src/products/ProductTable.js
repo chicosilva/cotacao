@@ -3,13 +3,13 @@ import 'react-bootstrap-table-next/dist/react-bootstrap-table2.min.css';
 import BootstrapTable from 'react-bootstrap-table-next';
 import { bindActionCreators } from "redux";
 import {connect} from "react-redux";
-import {getList} from "./actionCreators";
+import {getBudgetList} from "./actionCreators";
 import {Link} from "react-router-dom";
 
 class BudgetTable extends Component {
 
   componentDidMount(){
-    this.props.getList();
+    this.props.getBudgetList();
   }
   
   render() {
@@ -44,7 +44,7 @@ const mapStateToProps = state => (
 )
 
 const mapDispatchtoProps = dispatch => {
-  return bindActionCreators({getList}, dispatch)
+  return bindActionCreators({getBudgetList}, dispatch)
 }
 
 export default connect(mapStateToProps, mapDispatchtoProps)(BudgetTable);
