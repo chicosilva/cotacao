@@ -87,7 +87,7 @@ module.exports = app => {
         user.save((err, result) => {
 
             if (err) {
-                return res.status(500).json({
+                return res.status(422).json({
                     message: err
                 });
             }

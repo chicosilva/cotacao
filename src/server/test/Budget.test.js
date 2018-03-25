@@ -52,27 +52,30 @@ describe('Test Budgets', () => {
             .send({email: this.objUser.email});
         
         const token = response.body.token;
-
+        
         const decoded = jwt.verify(token, keys.secret);
         store.set('user', {user_id: decoded.user_id, token: token});
-
+        
         expect(this.objUser.id).to.be.equal(decoded.user_id);
 
     });
 
     it('create budget', async () => {
         
-        const response = await agent.post('/budgets/new')
-            .send({
-                description: "Test",
-                title: "Test Title",
-                date_limit: "2018-12-12",
-                user_id: store.get('user').user_id,
-                token: store.get('user').token
-            })
+        const token = store.get('user').token
+
+        const data = {
+            description: "Test" ,
+            title: "Test Title" ,
+            date_limit: "2018-12-12",
+            token: token,
+        }
+        
+        const response = await agent.post('/budgets/new/?token='+token)
+            .send(data)
 
         expect(response.body).to.include({
-            description: "Test"
+            title: "Test Title"
         });
 
         expect(response.statusCode).to.be.equal(200);
@@ -80,11 +83,13 @@ describe('Test Budgets', () => {
     });
 
     it('fail create budget', async () => {
+        
+        const token = store.get('user').token
 
         const response = await supertest(server)
-            .post('/budgets/new')
+            .post('/budgets/new/?token'+token)
             .send({
-                description: null
+                title: null
             });
 
         expect(response.statusCode).to.be.equal(422);
@@ -103,7 +108,7 @@ describe('Test Budgets', () => {
     it('token invalid', async () => {
         
         const response = await supertest(server).get('/budgets?token=123');
-        expect(response.statusCode).to.be.equal(500);
+        expect(response.statusCode).to.be.equal(422);
 
     });
 

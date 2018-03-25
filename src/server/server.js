@@ -34,11 +34,15 @@ app.use(bodyParser.urlencoded({
 }));
 app.use(cookieParser());
 
+// models
 require('./models/Product');
 require('./models/Budget');
 require('./models/User');
+
+//routes
 require('./routes/UserRoute')(app);
 require('./routes/BudgetsRoute')(app);
+require('./routes/ProductsRoute')(app);
 
 const PORT = process.env.PORT || 5000;
 

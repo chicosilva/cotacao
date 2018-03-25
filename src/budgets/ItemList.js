@@ -14,10 +14,10 @@ class ItemList extends React.Component{
               <table className="table table-bordered">
                 <thead>
                   <tr>
-                    <th>Produto</th>
-                    <th className="col-md-2">Quantidade</th>
-                    <th className="col-md-3">* Valor desejado</th>
-                    <th>* Última cotação</th>
+                    <th className="col-md-5"> Produto </th>
+                    <th className="col-md-1"> Quantidade </th>
+                    <th className="col-md-2"> Valor desejado </th>
+                    <th className="col-md-2"> Última cotação </th>
                   </tr>
                 </thead>
                 <tbody>
@@ -42,7 +42,7 @@ class ItemList extends React.Component{
                         <input type="text" className="form-control" />
                     </td>
                     <td>
-                        R$ 10,00
+                        R$ 10,00 (uni)
                     </td>
                   </tr>
                  
@@ -51,6 +51,7 @@ class ItemList extends React.Component{
               <div className="table-footer">
                 Total: R$ 190.00
               </div>
+              
             </div>
         )
     }

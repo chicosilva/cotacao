@@ -20,8 +20,10 @@ class BudgetForm extends React.Component {
     const {dispatch, getNewDate} = this.props;
     dispatch( actions.reset('form_budget.date_limit'));
 
+    dispatch( actions.focus('form_budget.title'));
+
     if(this.props.success){
-      return <Redirect to="/budgets" />;
+      return <Redirect to="/budgets" />
     }
     const today = new Date();
     return (
