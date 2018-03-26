@@ -1,39 +1,51 @@
 import React from 'react';
-import { Control, Form, Errors, actions } from 'react-redux-form';
+import { Control, Form, Errors, actions, Fieldset } from 'react-redux-form';
 import {connect} from "react-redux";
 import {bindActionCreators} from 'redux';
-import {newBudget, getNewDate} from './actionCreators';
+import {save, getNewDate} from './actionCreators';
 import {Redirect} from "react-router-dom";
 import DatePicker from "react-datepicker";
 import 'react-datepicker/dist/react-datepicker.css';
 import {reduxForm} from "redux-form";
-import ItemList from "./ItemList";
+import ItemList from "../products/ItemList";
+import {getList as productList} from "../products/actionCreators";
 
 class BudgetForm extends React.Component {
   
-  handleSubmit(data) {
-    this.props.newBudget(data);
+  componentWillMount(){
+
+    if(this.props.products.length === 0){
+      this.props.productList();
+    }
+    this.props.dispatch(actions.reset('form_budget.'));
+    this.props.dispatch(actions.reset('form_budget.date_limit'));
+    
+  }
+
+  testDados(dados){
+
+    console.log(dados)
+    return;
   }
 
   render() {
     
-    const {dispatch, getNewDate} = this.props;
-    
-    dispatch( actions.focus('form_budget.title'));
-    
+    const {getNewDate, save, products} = this.props;
+      
     if(this.props.success){
-      dispatch( actions.reset('form_budget.'));
-      dispatch( actions.reset('form_budget.date_limit'));
       return <Redirect to="/budgets" />
     }
+    
     const today = new Date();
     return (
       <div>
         
+        <Form model="form_budget" onSubmit={data => this.testDados(data)}>
+
         <div className="col-md-4">
           
           <div className="col-md-12">
-            <Form model="form_budget" onSubmit={data => this.handleSubmit(data)}> 
+            
               
             <Control type="hidden" model=".url" id="url" defaultValue="/budgets/new" className="form-control" />
 
@@ -96,7 +108,7 @@ class BudgetForm extends React.Component {
                 Próximo passo
               </button>
 
-            </Form>
+            
           </div>
 
         </div>
@@ -106,10 +118,15 @@ class BudgetForm extends React.Component {
             <div className="col-md-12">
               <h3 className="fix-margin-budget-title">Passo 2</h3>
               <hr />
-              <ItemList />
+              
+              <Fieldset model=".products">
+                <ItemList products={products} />
+              </Fieldset>
             </div>
 
         </div>
+
+        </Form>
       </div>
       
     );
@@ -122,12 +139,13 @@ const mapStateToProps =  state => {
     success: state.budget.success,
     error: state.budget.error,
     start_date: state.budget.start_date,
+    products: state.product.list,
   }
 }
 
 const mapDispatchtoProps = dispatch => {
   
-  return bindActionCreators({newBudget, getNewDate}, dispatch)
+  return bindActionCreators({save, getNewDate, productList}, dispatch)
 }
 
 BudgetForm = reduxForm({form: 'BudgetForm', destroyOnUnmount: false})(BudgetForm);

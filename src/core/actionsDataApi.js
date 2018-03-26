@@ -9,6 +9,11 @@ export const getDataApi = url => {
 
 export const postDataApi = (data, callBack) => {
     
+    if(data === undefined){
+        toast.error("Nenhum dado foi enviado.");
+        return;
+    }
+
     return axios({
             url: `${keys.urlApi}` + data.url,
             timeout: 5000,

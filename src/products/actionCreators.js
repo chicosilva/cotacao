@@ -1,69 +1,19 @@
-import { getToken } from "../users/reduce";
-import { toast } from 'react-toastify';
-import { actions } from 'react-redux-form';
+import {TYPES} from "../products/reduce";
+const {postDataApi, getDataApi} = require("../core/actionsDataApi");
 
-const axios = require('axios');
-const keys = require('../configs/keys');
-
-const save = data => {
-
-  return [
-    {type: "NEW_PRODUCT", payload: data},
-    getProductList(),
-  ];
-
-}
-
-export const newProduct = data => {
+export const save = data => {
 
   return function (dispatch) {
-
-    const data_form = Object.assign({}, data.form_product, {
-      token: getToken()
+    
+    postDataApi(data.form_product, response => {
+      dispatch({ type: TYPES.NEW, payload: data });
     });
-
-    return axios({
-        url: `${keys.urlApi}/products/new/`,
-        timeout: 5000,
-        method: 'post',
-        data: data_form,
-        responseType: 'json'
-      })
-      .then(function (response) {
-
-        toast.success("Cadastro efetuado com sucesso!");
-        dispatch(actions.reset('form_product'));
-        dispatch(save(response.data));
-
-      })
-      .catch(function (error) {
-
-        if (error.response) {
-
-          const errors = error.response.data.errors;
-
-          for (var key in errors) {
-            toast.error(errors[key].msg);
-          }
-
-        } else if (error.request) {
-
-          toast.error("Ocorreu um erro ao tentar cadastrar, tente novamente");
-
-        } else {
-
-          toast.error(error.message);
-        }
-
-      });
-
   }
 
 }
 
-export const getProductList = () => {
+export const getList = () => {
 
-  const request = axios.get(`${keys.urlApi}/products/?token=` + getToken());
-  return { type: 'GET_PRODUCT_LIST', payload: request}
-  
+  return { type: TYPES.LIST,payload: getDataApi('products')}
+
 }

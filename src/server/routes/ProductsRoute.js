@@ -18,11 +18,9 @@ module.exports = app => {
             });
         }
 
-        await Product.find({
-            user: decoded.user_id
-        }).sort('name').select('name created_at').exec(
+        await Product.find({}).sort('name').select('name created_at').exec(
 
-            (e, products) => {
+            (e, list) => {
 
                 if (e) {
                     res.status(422).json({
@@ -32,7 +30,7 @@ module.exports = app => {
 
                 res.status(200).json({
                     message: "success",
-                    products: products
+                    list: list
                 });
 
             });

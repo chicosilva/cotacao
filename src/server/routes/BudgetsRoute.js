@@ -23,7 +23,7 @@ module.exports = app => {
             user: decoded.user_id
         }).sort('-_id').select('title created_at date_limit').exec(
 
-            (e, budgets) => {
+            (e, list) => {
 
                 if (e) {
                     res.status(422).json({
@@ -33,7 +33,7 @@ module.exports = app => {
 
                 res.status(200).json({
                     message: "success",
-                    budgets: budgets
+                    list: list
                 });
 
             });

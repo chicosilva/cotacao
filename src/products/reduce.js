@@ -15,8 +15,8 @@ const initial = {
 }
 
 const TYPES = {
-  LIST: 'LIST',
-  NEW: 'NEW',
+  LIST: 'PRODUCT_LIST',
+  NEW: 'NEW_PRODUCT',
 }
 
 const productsReducer = function (state = initial, action) {
@@ -26,7 +26,7 @@ const productsReducer = function (state = initial, action) {
     case TYPES.LIST:
       return Object.assign({},
         state, {
-          list: action.payload.data.budgets,
+          list: action.payload.data.list,
           success: false
         }
       )

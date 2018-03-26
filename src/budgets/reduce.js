@@ -30,7 +30,7 @@ const budgetsReducer = function (state = initial, action) {
     case TYPES.LIST:
       return Object.assign({},
         state, {
-          list: action.payload.data.budgets,
+          list: action.payload.data.list,
           success: false
         }
       )
